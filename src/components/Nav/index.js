@@ -26,10 +26,10 @@ function Nav() {
   }
 
   return (
-    <header>
+    <header className="flex-row px-1">
       <h2>
-        <a href="/">
-          <span role="img" arial-label="camera">
+        <a data-testid="link" href="/">
+          <span role="img" aria-label="camera">
             📸
           </span>
           Oh Snap!
@@ -38,7 +38,7 @@ function Nav() {
       <nav>
         <ul className="flex-row">
           <li className="mx-2">
-            <a href="#about">About me</a>
+            <a data-testid="about" href="#about">About me</a>
           </li>
           <li>
             <span>Contact</span>
