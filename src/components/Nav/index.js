@@ -1,31 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { capitalizeFirstLetter } from "../../utils/helpers";
 
-function Nav() {
-  const categories = [
-    {
-      name: "commercial",
-      description:
-        "Photos of grocery stores, food trucks, and other commercial projects",
-    },
-    {
-      name: "portraits",
-      description: "Portraits of people in my life",
-    },
-    {
-      name: "food",
-      description: "Delicious delicacies",
-    },
-    {
-      name: "landscape",
-      description: "Fields, farmhouses, waterfalls, and the beauty of nature",
-    },
-  ];
+function Nav(props) {
+  const { 
+    categories = [], 
+    setCurrentCategory, 
+    currentCategory } = props;
 
   const categorySelected = (item) => {
     console.log(item);
     return item;
   };
+
+  // useEffect hook
+  // mutations or any other side effects are not allowed inside
+  // the main body of a component, thus we define them as a function
+  // outside of the main body
+  useEffect(() => {
+    document.title = capitalizeFirstLetter(currentCategory.name);
+    // why does this still work without the second argument?
+    // array arg directs the hook to re-render the component
+    // on changes to the value of its state
+  }, [currentCategory]);
 
   return (
     <header className="flex-row px-1">
@@ -51,9 +47,14 @@ function Nav() {
           {/* parentheses around map cb */}
           {/* return a single JSX element */}
           {categories.map((category) => (
-            <li className="mx-1" key={category.name}>
+            <li
+              className={`mx-1 ${
+                currentCategory.name === category.name && "navActive"
+              }`}
+              key={category.name}
+            >
               {/* onClick expecting cb function  */}
-              <span onClick={() => categorySelected(category.name)}>
+              <span onClick={() => setCurrentCategory(category)}>
                 {capitalizeFirstLetter(category.name)}
               </span>
             </li>
