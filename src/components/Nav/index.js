@@ -1,4 +1,5 @@
 import React from "react";
+import { capitalizeFirstLetter } from "../../utils/helpers";
 
 function Nav() {
   const categories = [
@@ -21,17 +22,19 @@ function Nav() {
     },
   ];
 
-  function categorySelected(name) {
-    console.log(`${name} clicked`);
-  }
+  const categorySelected = (item) => {
+    console.log(item);
+    return item;
+  };
 
   return (
     <header className="flex-row px-1">
       <h2>
         <a data-testid="link" href="/">
-          <span role="img" aria-label="camera">
+          <span role="img" arial-label="camera">
+            {" "}
             📸
-          </span>
+          </span>{" "}
           Oh Snap!
         </a>
       </h2>
@@ -40,7 +43,7 @@ function Nav() {
           <li className="mx-2">
             <a data-testid="about" href="#about">About me</a>
           </li>
-          <li>
+          <li className={"mx-2"}>
             <span>Contact</span>
           </li>
           {/* parentheses around map cb */}
@@ -49,7 +52,7 @@ function Nav() {
             <li className="mx-1" key={category.name}>
               {/* onClick expecting cb function  */}
               <span onClick={() => categorySelected(category.name)}>
-                {category.name}
+                {capitalizeFirstLetter(category.name)}
               </span>
             </li>
           ))}
