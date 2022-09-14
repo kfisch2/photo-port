@@ -118,7 +118,7 @@ function PhotoList({ category }) {
     },
   ]);
 
-  const currentPhotos = photos.filter((photo) => photo.category === category);
+  const currentPhotos = photos.filter(photo => photo.category === category);
 
   return (
     <div>
@@ -128,7 +128,7 @@ function PhotoList({ category }) {
             // default property must be invoked to render the image
             // defauly property is where the image is saved... but they aren't rendering
             // BUT I TOOK DEFAULT AWAY AND THE PHOTOS RENDERED
-            src={require(`../../assets/small/${category}/${i}.jpg`)}
+            src={require(`../../assets/small/${category}/${i}.jpg`).default}
             alt={image.name}
             className="img-thumbnail mx-1"
             key={image.name}

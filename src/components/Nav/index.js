@@ -7,10 +7,10 @@ function Nav(props) {
     setCurrentCategory, 
     currentCategory } = props;
 
-  const categorySelected = (item) => {
-    console.log(item);
-    return item;
-  };
+  // const categorySelected = (item) => {
+  //   console.log(item);
+  //   return item;
+  // };
 
   // useEffect hook
   // mutations or any other side effects are not allowed inside
