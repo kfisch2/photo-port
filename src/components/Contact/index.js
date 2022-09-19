@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { validateEmail } from "../../utils/helpers";
 
 // controlled component: when the form data is maintained by the state of the component
 // uncontrolled: When the data is retrieved, then submitted directly from the DOM
@@ -10,13 +11,34 @@ export default function ContactForm() {
     message: "",
   });
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   function handleChange(e) {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+    // email validator
+    if (e.target.name === "email") {
+      const isValid = validateEmail(e.target.value);
+      console.log(isValid);
+      if (!isValid) {
+        setErrorMessage("Your email is invalid");
+      } else {
+        if (!e.target.value.length) {
+          setErrorMessage(`${e.target.name} is required`);
+        } else {
+          setErrorMessage("");
+        }
+      }
+    }
+
+    if (!errorMessage) {
+      setFormState({ ...formState, [e.target.name]: e.target.value });
+    }
+
+    console.log("errorMessage", errorMessage);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(formState)
+    console.log(formState);
   }
 
   console.log(formState);
@@ -31,12 +53,17 @@ export default function ContactForm() {
             type="text"
             name="name"
             defaultValue={name}
-            onChange={handleChange}
+            onBlur={handleChange}
           />
         </div>
         <div>
           <label htmlFor="email">Email:</label>
-          <input type="email" name="email" defaultValue={email} onChange={handleChange} />
+          <input
+            type="email"
+            name="email"
+            defaultValue={email}
+            onBlur={handleChange}
+          />
         </div>
         <div>
           <label htmlFor="message">Message:</label>
@@ -44,9 +71,15 @@ export default function ContactForm() {
             rows="5"
             type="message"
             name="message"
-            defaultValue={message} onChange={handleChange}
+            defaultValue={message}
+            onBlur={handleChange}
           />
         </div>
+        {errorMessage && (
+          <div>
+            <p className="error-text">{errorMessage}</p>
+          </div>
+        )}
         <button type="submit" id="submitBtn">
           Submit
         </button>
