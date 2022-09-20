@@ -6,14 +6,11 @@ function Nav(props) {
     categories = [],
     setCurrentCategory,
     currentCategory,
-    contactSelected,
-    setContactSelected,
+    pageSelected,
+    setPageSelected,
   } = props;
 
-  // const categorySelected = (item) => {
-  //   console.log(item);
-  //   return item;
-  // };
+
 
   // useEffect hook
   // mutations or any other side effects are not allowed inside
@@ -43,20 +40,22 @@ function Nav(props) {
             <a
               data-testid="about"
               href="#about"
-              onClick={() => setContactSelected(false)}
+              onClick={() => setPageSelected("about")}
             >
               About me
             </a>
           </li>
-          <li className={`mx-2 ${contactSelected && 'navActive'}`}>
-            <span onClick={() => setContactSelected(true)}>Contact</span>
+          <li className={`mx-2`}>
+            <span onClick={() => setPageSelected("contact")}>Contact</span>
           </li>
           {/* parentheses around map cb */}
           {/* return a single JSX element */}
           {categories.map((category) => (
             <li
               className={`mx-1 ${
-                currentCategory.name === category.name && !contactSelected && "navActive"
+                currentCategory.name === category.name &&
+                pageSelected 
+            
               }`}
               key={category.name}
             >
@@ -64,7 +63,7 @@ function Nav(props) {
               <span
                 onClick={() => {
                   setCurrentCategory(category);
-                  setContactSelected(false);
+                  setPageSelected("gallery");
                 }}
               >
                 {capitalizeFirstLetter(category.name)}
